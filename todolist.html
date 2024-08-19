@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgb(25, 46, 46);
+    }
+    .container {
+      position: relative;
+      width: 450px;
+      height: 550px;
+      background-color: darkslategrey;
+      border-radius: 30px;
+      box-shadow: 25px 25px 75px rgba(9, 22, 22, 0.27),
+        10px 10px 70px rgba(9, 22, 22, 0.27),
+        inset 5px 5px 10px rgba(9, 22, 22, 0.27);
+    }
+    .container h1 {
+      text-align: center;
+    }
+    .container input {
+      width: 400px;
+      margin-left: 20px;
+      height: 50px;
+      border-radius: 200px;
+      outline: none;
+    }
+    ul li {
+      position: relative;
+      width: 260px;
+      list-style-type: none;
+      display: flex;
+      align-items: center;
+      background: rgb(21, 109, 150);
+      padding: 5px;
+      border-radius: 20px;
+      margin: 10px 0;
+      outline: none;
+    }
+
+    ul span {
+      position: absolute;
+      width: 34px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      background-color: blue;
+      margin-left: 325px;
+      text-align: center;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+    }
+    #edit {
+      position: absolute;
+      width: 34px;
+      padding-top: 7.5px;
+      padding-bottom: 7.5px;
+      background-color: blue;
+      margin-left: 280px;
+      text-align: center;
+      border-radius: 50%;
+      color: white;
+      font-size: 14.5px;
+      cursor: pointer;
+    }
+  </style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To do List</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>List Hari ini</h1>
+      <input id="input" />
+      <ul id="txt"></ul>
+    </div>
+  </body>
+  <script>
+    const enter = document.getElementById("input");
+    const body = document.querySelector(".container");
+    const txt = document.getElementById("txt");
+    enter.style.fontSize = "15px";
+    enter.style.fontFamily = "Georgia, Times New Roman, Times, serif";
+
+    enter.addEventListener("keydown", function (event) {
+      if (event.keyCode === 13) {
+        addItem(enter.value);
+        enter.value = "";
+      }
+    });
+
+    function addItem(enter) {
+      const i = document.createElement("li");
+      i.innerHTML = `${enter}<span id = 'span' onclick='hapus(this)'>X</span><span id = 'edit' onclick='edit(this)'>📝
+            </span>`;
+      txt.appendChild(i);
+      i.style.height = i.scrollHeight + "px";
+    }
+
+    function hapus(element) {
+      element.parentNode.remove();
+    }
+    function edit(element) {
+      const li = element.parentNode;
+      li.setAttribute("contenteditable", "true");
+
+      document.addEventListener("click", function (event) {
+        if (!li.contains(event.target)) {
+          li.setAttribute("contenteditable", "false");
+        }
+      });
+    }
+  </script>
+</html>
